@@ -26,6 +26,7 @@ public class PatientController {
         model.addAttribute("ListPatiants",patients.getContent());
         model.addAttribute("page",new int[patients.getTotalPages()]);
         model.addAttribute("currentPage",page);
+        model.addAttribute("keyword",keyword);
 
         return "patients";
     }
