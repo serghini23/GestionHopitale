@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th ="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Patients</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+
+</head>
+<body>
+<div class="p-3 m-2" >
+    <div class="card">
+        <div class="card-header">Liste des patients</div>
+        <div class="card-body">
+            <form method="get" th:action="@{/doctors}">
+                <label>Keyword</label>
+                <input type="text" name="keyword">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <td>ID</td> <td>Nom</td> <td>Prenom</td> <td>Date</td> <td>Score</td> <td>Malade</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="d: ${ListDoctors}" >
+                    <td th:text="${d.id}"></td>
+                    <td th:text="${d.nom}"></td>
+                    <td th:text="${d.prenom}"></td>
+                    <td th:text="${d.specialite}"></td>
+
+                    <td>
+                        <a class="btn btn-danger" th:href="@{deleteDoctor(id=${d.id})}">Delete</a>
+                    </td>
+
+
+
+                </tr>
+                </tbody>
+
+
+            </table>
+
+            <ul class="nav nav-pills">
+
+                <li th:each="pages,status :${page}">
+                    <a th:class="${status.index==currentPage?'btn btn-info m-1':'btn btn-outline-info m-1'}"
+                       th:href="@{/index(page=${status.index},keyword=${keyword})}"
+                       th:text="${status.index +1}"></a>
+
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+<form th:action="@{/gotoindex}" method="get">
+    <button type="submit" class="btn btn-success">Go to Patients</button>
+</form>
+
+</body>
+</html>
